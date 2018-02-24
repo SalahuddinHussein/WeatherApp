@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -43,7 +44,8 @@ public class ChangeCityController extends AppCompatActivity {
 
                 // Adds what was entered in the EditText as an extra to the intent.
                 newCityIntent.putExtra("City", newCity);
-
+                Log.d("Weather","putting extras"+newCity);
+                startActivity(newCityIntent);
                 // We started this activity for a result, so now we are setting the result.
                 setResult(Activity.RESULT_OK, newCityIntent);
 

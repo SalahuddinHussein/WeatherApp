@@ -83,8 +83,9 @@ public class WeatherController extends AppCompatActivity {
         Intent myIntent=getIntent();
         String city=myIntent.getStringExtra("City");
 
-        if(city!=null){
+        if(city!=(null)){
             getWeatherForNewCity(city);
+            Log.d("Weather","new city comes now :)");
         }else {
 
             Log.d("Weather", "Getting current Location ");
