@@ -2,6 +2,7 @@ package com.smiledwatermelon.weatherapp;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -9,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,6 +53,7 @@ public class WeatherController extends AppCompatActivity {
     TextView mCityLabel;
     ImageView mWeatherImage;
     TextView mTemperatureLabel;
+    boolean mLocation=true;
 
     // Declaring a LocationManager and a LocationListener here:
     LocationManager mLocationManager;
@@ -79,7 +82,7 @@ public class WeatherController extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        Log.d("Weather", "on resume called");
+       if(mLocation){ Log.d("Weather", "on resume called");
         Intent myIntent=getIntent();
         String city=myIntent.getStringExtra("City");
 
@@ -90,7 +93,8 @@ public class WeatherController extends AppCompatActivity {
 
             Log.d("Weather", "Getting current Location ");
             getWeatherForCurrentLocation();
-        }
+        }}
+
 
     }
 
@@ -195,6 +199,18 @@ public class WeatherController extends AppCompatActivity {
                 getWeatherForCurrentLocation();
             }else{
                 Log.d("Weather","Permission Denied");
+                mLocation=false;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("You Need to Grant Location Access!")
+                        .setCancelable(false)
+                        .setPositiveButton("Exit", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                finish();
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
             }
         }
 
