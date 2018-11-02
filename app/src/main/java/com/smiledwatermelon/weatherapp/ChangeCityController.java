@@ -28,8 +28,9 @@ public class ChangeCityController extends AppCompatActivity {
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Go back and destroy the ChangeCityController
+
                 finish();
+
             }
         });
 
